@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: api.Dockerfile
+    depends_on:
+      - postgres
+    restart: always
     container_name: api_squadmaker
     volumes:
       - ./:/home/squadmaker/src/app
