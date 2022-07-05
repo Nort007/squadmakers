@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  api_squadmaker:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    container_name: api_squadmaker
+    volumes:
+      - ./:/home/squadmaker/src/app
+    ports:
+      - "5000:5000"
+
+  postgres:
+    image: library/postgres:14
+    container_name: ${DATABASE_HOST}
+    restart: always
+    env_file:
+      - .env.example
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_PORT=${DATABASE_PORT}
+    ports:
+      - "5432:5432"
+    volumes:
+      - $HOME/PycharmProjects/GitHub/.squadmaker_base_data:/var/lib/postgresql/data
+
+volumes:
+  .squadmaker_base_data:

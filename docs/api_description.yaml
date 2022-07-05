@@ -1,0 +1,210 @@
+swagger: '2.0'
+info:
+  description:
+    "About squadmakers"
+  version: 0.0.1
+  title: 'Squadmakers'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: 0.0.0.0:5000
+basePath: /api
+tags:
+  - name: joke
+    description: About joke endpoint api
+  - name: mathematico
+    description: About mathematico endpoint api
+schemas:
+  - https
+  - http
+paths:
+  /joke/add-joke:
+    post:
+      tags:
+        - joke
+      summary: Add a new Joke
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: 'Joke object that needs to be added to the db'
+          required: true
+          schema:
+            $ref: '#/definitions/Add-Joke'
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal Error
+        '404':
+          description: Path not Found
+
+  /joke/get-joke:
+    get:
+      tags:
+        - joke
+      summary: Random joke
+      description: Get random joke if 'jokeFrom' is empty, or random joke from the joker(dad,chuck)
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: jokeFrom
+          schema:
+            type: string
+          description: "Get random joke from chuck or dad"
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal Error
+        '404':
+          description: Path not Found
+  /joke/update-joke:
+    put:
+      tags:
+        - joke
+      summary: Update current joke
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: 'Update current joke'
+          required: true
+          schema:
+            $ref: '#/definitions/Update-Joke'
+      responses:
+        '200':
+          description: Updated
+        '500':
+          description: Internal Error
+        '404':
+          description: Path not Found
+  /joke/delete-joke:
+    delete:
+      tags:
+        - joke
+      summary: Delete joke
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: 'Delete current joke'
+          required: true
+          schema:
+            $ref: '#/definitions/Delete-Joke'
+      responses:
+        '200':
+          description: Deleted
+        '500':
+          description: Internal Error
+        '404':
+          description: Path not Found
+
+  /math/lcm:
+    get:
+      tags:
+        - mathematico
+      summary: Get lowest common multiple
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: numbers
+          schema:
+            type: array
+          description: "4,8,12,16"
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal Error
+        '404':
+          description: Path not Found
+  /math/increment-number:
+    get:
+      tags:
+        - mathematico
+      summary: Get increment + 1
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: number
+          schema:
+            type: string
+          description: "4"
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal Error
+        '404':
+          description: Path not Found
+
+definitions:
+  Delete-Joke:
+    type: object
+    required:
+      - number
+    properties:
+      number:
+        type: string
+        example: '123qwerty'
+  Update-Joke:
+    type: object
+    required:
+      - number
+      - value
+    properties:
+      number:
+        type: string
+        example: '123qwerty'
+      value:
+        type: string
+        example: "Updated joke"
+  Add-Joke:
+    type: object
+    required:
+      - number
+      - value
+    properties:
+      number:
+        type: string
+        example: '123Fdfdfd'
+      value:
+        type: string
+        example: 'Test joke'
+      from_joke:
+        type: string
+        example: 'dad'
