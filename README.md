@@ -31,3 +31,6 @@ After install some containers launch this command:
 
 #### Schemas
 * Schema for using pydantic for the joke model
+
+#### Docs
+* docs: - yaml for swagger
